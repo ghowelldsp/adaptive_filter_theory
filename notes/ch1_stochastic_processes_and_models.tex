@@ -3,6 +3,8 @@
 \usepackage{titlesec}
 \usepackage[a4paper, total={7in, 8in}]{geometry}
 
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
 \titlespacing*{\section}{0pt}{8.5ex plus 1ex minus .2ex}{4.3ex plus .2ex}
 
 \title{Stochastic Processes and Models}
@@ -74,10 +76,10 @@
     \[
     \textbf{R} = 
     \begin{bmatrix}
-        r(0)    & r(1)      & \dots  & r(M-1) \\
-        r(-1)   & r(0)      & \dots  & r(M-2) \\
-        \vdots  & \vdots    & \ddots & \vdots \\
-        r(-M+1) & r(-M+2)   & \dots  & r(0)
+        r(0)    & r(1)      & \dots  & r(M-1)   \\
+        r(-1)   & r(0)      & \dots  & r(M-2)   \\
+        \vdots  & \vdots    & \ddots & \vdots   \\
+        r(-M+1) & r(-M+2)   & \dots  & r(0)     \numberthis
     \end{bmatrix}
     \]
 
@@ -99,7 +101,46 @@
     \noindent\textbf{Property 6:} The correlation matrices //TODO
 
     \section{Correlation Matrix of Sine Wave Plus Noise}
+   
+    An interesting case of a correlation matrix is that of a sine wave and noise. Given a signal of the form,
+    \begin{equation}
+        u(n) = \alpha e^{j\omega n} + v(n), \qquad n = 0,1,...,N-1
+    \end{equation}
+    where the signal is represented as a complex exponential and \(v(n)\) is the noise. The autocorrelation of the 
+    noise results in \(r(k)=\sigma^2\) when \(k=0\) and \(r(k)=0\) when \(k\not=0\). Consequentially, the 
+    autocorrelation of the input signal is seen as, 
+    \begin{align*}
+        r(k) &= \mathbb{E}[u(n)u^*(n-k)]\\
+             &= \mathbb{E}[(\alpha e^{j\omega n} + v(n))(\alpha e^{-j\omega n-k} + v^*(n-k))]\\
+             &= \mathbb{E}[(|\alpha|^2 e^{j\omega k} + v(n)v^*(n-k) + v(n)\alpha e^{-j\omega n-k} + \alpha e^{j\omega n} v^*(n-k)]\\
+             &= \mathbb{E}[(|\alpha|^2 e^{j\omega k}] + \mathbb{E}[v(n)v^*(n-k)] + \mathbb{E}[v(n)\alpha e^{-j\omega n-k}] + \mathbb{E}[\alpha e^{j\omega n} v^*(n-k)]
+    \end{align*}
+    as the sine tone and the noise are independant of one another, the autocorrelation of the last two term results
+    in \(0\) for all values of \(k\), hence this may be simplified to,
+    \begin{align*}
+        r(k) = \mathbb{E}[(|\alpha|^2 e^{j\omega k}] + \mathbb{E}[v(n)v^*(n-k)]
+    \end{align*}
+    Hence,
+    % \begin{equation}
+    \begin{align*}
+        r &= |\alpha|^2 + \sigma^2, && \textrm{when} \quad k = 0 \quad \textrm{and} \\
+          &= |\alpha|^2 e^{j\omega k} && \textrm{when} \quad k \not= 0            
+          \numberthis  
+    \end{align*}
+    % \end{equation}
+    The correlation matrix is then,
+    \[
+    \textbf{R} = |\alpha|^2
+    \begin{bmatrix}
+        1 + \dfrac{1}p     & e^{j\omega}        & \dots     & e^{j\omega(M-1)}  \\
+        e^{-j\omega}        & 1 + \dfrac{1}p    & \dots     & e^{j\omega(M-2)}  \\
+        \vdots              & \vdots            & \ddots    & \vdots            \\
+        e^{-j\omega(M-1)}   & e^{-j\omega(M-2)} & \dots     & 1 + \dfrac{1}p    \numberthis
+    \end{bmatrix}
+    \]
+    and where \(p=\dfrac{|\alpha|^2}{\sigma^2}\), is the \textit{signal to noise ratio}.
 
-
+    \section{Stochastic Models}
+    
 
 \end{document}

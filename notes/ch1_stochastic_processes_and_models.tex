@@ -1,0 +1,105 @@
+\documentclass{article} 
+\usepackage{amsmath, amssymb}
+\usepackage{titlesec}
+\usepackage[a4paper, total={7in, 8in}]{geometry}
+
+\titlespacing*{\section}{0pt}{8.5ex plus 1ex minus .2ex}{4.3ex plus .2ex}
+
+\title{Stochastic Processes and Models}
+\author{George Howell}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \newpage
+
+    \tableofcontents
+    \newpage
+
+    \section{Partial Characterisation of a Discrete-Time Stochastic Process}
+    
+    \subsection{Mean}
+    The mean value of a signal can be seen as the expected result of the signal,
+    \begin{equation}
+        \mu(n) = \mathbb{E}[u(n)]
+    \end{equation}
+
+    \subsection{Autocorrelation}
+
+    The \textit{autocorrelation} of two signals is seen as,
+    \begin{equation}
+        r(n, n-k) = \mathbb{E}[u(n)u^*(n-k)]
+    \end{equation}
+    When \(k=0\), the autocorrelation equals the \textit{mean square value},
+    \begin{equation}
+        r(0) = \mathbb{E}[|u(n)|^2]
+    \end{equation}
+
+    \subsection{Autocovariance}
+
+    The \textit{autocovariance} of two signals is seen as
+    \begin{equation}
+        c(n, n-k) = \mathbb{E}[(u(n)-\mu(n))(u(n-k) - \mu(n-k))^*]
+    \end{equation}
+    When \(k=0\), the autocovariance equals the \textit{variance},
+    \begin{equation}
+        c(0) = \mathbb{E}[|u(n)-\mu(n)|^2] = \sigma^2
+    \end{equation}
+    The relationship between autocorrelation and autocorrelation can be seen as,
+    \begin{equation}
+        c(n, n-k) = r(n, n-k) - \mu(n)\mu^*(n-k)
+    \end{equation}
+
+    \section{Mean Ergodic Theorem}
+
+    An time average estimate of the mean can be seen as,
+    \begin{equation}
+        \hat{\mu}(N) = \sum_{n=0}^{N-1} u(n)
+    \end{equation}
+    If the mean square error between the time average \(\hat{\mu}(n)\) and the ensemble average \(\mu(n)\) approaches as
+    the number of samples approaches infinity, then the process is said to be mean ergodic, that is,
+    \begin{equation}
+        \lim_{N\to\infty} \mathbb{E}[|\mu-\hat{\mu}(N)|^2] = 0
+    \end{equation}
+
+    \section{Correlation Matrix}
+    
+    If \(\textbf{u}(n)\) represents a vector of zero mean time signal of length \(M\), such that 
+    \(\textbf{u}(n) = [u(n), u(n-1), ..., u(n-M+1)]^T\) 
+    The correlation matrix can be seen as the outer product of this vector with itself,
+    \begin{equation}
+        \textbf{R} = \mathbb{E}[\textbf{u}(n)\textbf{u}^H(n)]
+    \end{equation}
+    The resultant correlation matrix is then seen as,
+    \[
+    \textbf{R} = 
+    \begin{bmatrix}
+        r(0)    & r(1)      & \dots  & r(M-1) \\
+        r(-1)   & r(0)      & \dots  & r(M-2) \\
+        \vdots  & \vdots    & \ddots & \vdots \\
+        r(-M+1) & r(-M+2)   & \dots  & r(0)
+    \end{bmatrix}
+    \]
+
+    \subsection{Properties of the Correlation Matrix}
+
+    \noindent\textbf{Property 1:} The correlation matrix of a discrete-time stochastic process is Hermitian.
+    
+    \noindent\textbf{Property 2:} The correlation matrix of a discrete-time stochastic process is Toeplitz.
+
+    \noindent\textbf{Property 3:} The correlation matrix of a discrete-time stochastic process is always non-negative
+    definite and almost always positive definite.
+
+    \noindent\textbf{Property 4:} The correlation matrix of a wide sense stationary process is nonsigular due to the 
+    presence of additive noise.
+
+    \noindent\textbf{Property 5:} When the element of the observation vector are rearranged backwards, this equivalent
+    transposition of the correlation matrix.
+    
+    \noindent\textbf{Property 6:} The correlation matrices //TODO
+
+    \section{Correlation Matrix of Sine Wave Plus Noise}
+
+
+
+\end{document}
